@@ -5,6 +5,7 @@ import "errors"
 const (
 	OP_0     = 0x00
 	OP_FALSE = OP_0 // An alias for OP_0
+	OP_DUP   = 0x76 // Duplicates the top stack item
 )
 
 type Engine struct {
@@ -34,7 +35,8 @@ func (e *Engine) Next() error {
 	switch opcode {
 	case OP_0:
 		return e.op0()
-	// Add cases for other opcodes here
+	case OP_DUP:
+		return e.opDup()
 	default:
 		return errors.New("unknown opcode")
 	}
